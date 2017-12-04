@@ -7,11 +7,14 @@ namespace NGitLab.Impl
     {
         private readonly API _api;
         private readonly string _repoPath;
+        private readonly string _projectPath;
 
-        public BranchClient(API api, string repoPath)
+        public BranchClient(API api, int projectId)
         {
             _api = api;
-            _repoPath = repoPath;
+            
+            _projectPath = Project.Url + "/" + projectId;
+            _repoPath = _projectPath + "/repository";
         }
 
         public IEnumerable<Branch> All

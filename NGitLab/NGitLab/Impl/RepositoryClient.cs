@@ -10,11 +10,13 @@ namespace NGitLab.Impl
         private readonly API _api;
         private readonly string _repoPath;
         private readonly string _projectPath;
+        private readonly int _projectId;
 
         public RepositoryClient(API api, int projectId)
         {
             _api = api;
 
+            _projectId = projectId;
             _projectPath = Project.Url + "/" + projectId;
             _repoPath = _projectPath + "/repository";
         }
@@ -51,17 +53,17 @@ namespace NGitLab.Impl
 
         public IFilesClient Files
         {
-            get { return new FileClient(_api, _repoPath); }
+            get { return new FileClient(_api, _projectId); }
         }
 
         public IBranchClient Branches
         {
-            get { return new BranchClient(_api, _repoPath); }
+            get { return new BranchClient(_api, _projectId); }
         }
 
         public IProjectHooksClient ProjectHooks
         {
-            get { return new ProjectHooksClient(_api, _projectPath); }
+            get { return new ProjectHooksClient(_api, _projectId); }
         }
 
 		public Tag CreateTag(TagCreate tag)
